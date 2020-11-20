@@ -43,22 +43,23 @@ public class Programa {
 
         //bucle para introducir dimensiones habitaciones predeterminadas
         for (int i = 0; i < 4; i++) {
-            String metrosHab = JOptionPane.showInputDialog("¿Metros cuadrados de"
-                    + " la habitacion: "
-                    + nombreDependencia[i] + " ?");
-            metrosDependencias[i] = Integer.parseInt(metrosHab);
+                String metrosHab = JOptionPane.showInputDialog("¿Metros cuadrados de"
+                        + " la habitacion: "
+                        + nombreDependencia[i] + " ?");
+                metrosDependencias[i] = Integer.parseInt(metrosHab);
         }
         if (answer.equalsIgnoreCase("si")) {
 
             //bucle para introducir dimensiones habitaciones predeterminadas
             for (int j = 0; j < habitacionesAniadidas; j++) {
-                nombreHabAdicional[j] = JOptionPane.showInputDialog(
-                        "¿Nombre de la habitacion adicional"
-                        + (j + 1) + "?");
-                String metrosHabAniadidas = JOptionPane.showInputDialog(
-                        "Dimensiones de la habitacion: "
-                        + nombreHabAdicional[j]);
-                metrosHabAdiconales[j] = Integer.parseInt(metrosHabAniadidas);
+                    nombreHabAdicional[j] = JOptionPane.showInputDialog(
+                            "¿Nombre de la habitacion adicional"
+                            + (j + 1) + "?");
+                    String metrosHabAniadidas = JOptionPane.showInputDialog(
+                            "Dimensiones de la habitacion: "
+                            + nombreHabAdicional[j]);
+                    metrosHabAdiconales[j] = Integer.parseInt(metrosHabAniadidas);
+
             }
         }
 
@@ -259,7 +260,7 @@ public class Programa {
 
                                     //bucle para limpiar metro a metro la habitaicon
                                     for (int limpiar = 0; limpiar < metrosDependencias[habitacionDependencia]; limpiar++) {
-                                        
+
                                         //actualizacion de la bateria
                                         BATERIA = BATERIA - DESGASTEBATERIA;
 
@@ -290,7 +291,7 @@ public class Programa {
                                                 + "\nCarga:" + BATERIA);
 
                                         for (int limpiar = 0; limpiar < metrosDependencias[habitacionAdicional]; limpiar++) {
-                                            
+
                                             //actualizacion de la bateria
                                             BATERIA = BATERIA - DESGASTEBATERIA;
 
