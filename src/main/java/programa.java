@@ -106,17 +106,19 @@ public class Programa {
                     break;
             }
             if (modo == 6) {
-                repetirPrograma = MensajeRepetir();
+                repetirPrograma = MensajeRepetir();//actualizacion del bucle para salir o no del programa
             }
         } while (repetirPrograma);
 
     }
-    
+
     public static void inicioDeSesion() {
 
+        //declaramos que para iniciar sesion los credenciales deben ser usuario en ambos campos
         final String usuario = "usuario";
         final String contraseña = "usuario";
         boolean repetirInicio = true;
+        //bucle mientras que los credenciales sean incorrectos vuelva a pedir que iniciemos secion correctamente
         do {
             String inicio = JOptionPane.showInputDialog("Nombre de usuario");
             String password = JOptionPane.showInputDialog("Contraseña");
@@ -140,13 +142,16 @@ public class Programa {
                 + "5-Estado general\n"
                 + "6-Salir del programa");
         int modo = Integer.parseInt(opcion);
+        //devolvemos un int con el modo que quermos
         return modo;
     }
-    
-     public static void ModoAspiracion(int[] metrosDependencias,
+
+    //para esta funcion necesitamos los 4 arrays y la respuesta de si queremos aniadir habitaciones
+    public static void ModoAspiracion(int[] metrosDependencias,
             int[] metrosHabAdiconales, String[] nombreDependencia,
             String[] nombreHabAdicional, String answer) {
 
+        //bariables necesarias para la fincion
         int metrosLimpiados = 0;
         double metrosTotalLimpiados = 0;
         double bateriaNecesaria;
@@ -188,6 +193,7 @@ public class Programa {
                     }
                 }
                 if (answer.equalsIgnoreCase("si")) {
+                    //bucle para limpiar habitacion tras habitacion
                     for (int i = 0; i < nombreHabAdicional.length; i++) {
 
                         //mostramos por pantalla la habtacion que se va a limpiar
@@ -200,7 +206,7 @@ public class Programa {
                         bateriaNecesaria = metrosHabAdiconales[i] * DESGASTEBATERIA;
                         if (BATERIA > bateriaNecesaria) {//condicion para limpiar la hab
 
-                            //bucle para limpiar metro a metro la casa
+                            //bucle para limpiar metro a metro la habitacion
                             for (int limpiar = 0; limpiar < metrosHabAdiconales[i]; limpiar++) {
 
                                 //actualizacion de la bateria
@@ -218,101 +224,105 @@ public class Programa {
                 }
                 break;
 
-                
-        case 2:
-        
-            boolean repetir;
-            do {
-                repetir = MensajeLimpiar();
+            case 2:
 
-                if (repetir == true) {
+                boolean repetir;
+                do {
+                    repetir = MensajeLimpiar();
 
-                    int habitacion = Integer.parseInt(JOptionPane.showInputDialog(
-                            "¿Que habitaicon quiere limpiar?\n"
-                            + "1-Habitaciones predeterminadas"
-                            + "2-Habitaciones aniadidas"));
+                    if (repetir == true) {
 
-                    switch (habitacion) {
-                        case 1:
-                            int habitacionDependencia = Integer.parseInt(
-                                    JOptionPane.showInputDialog("¿Que habitaicon quiere "
-                                    + "limpiar?\n"
-                                    + "1-Salon"
-                                    + "2-Cocina"
-                                    + "3-Baño"
-                                    + "4-Dormitorio"));
+                        int habitacion = Integer.parseInt(JOptionPane.showInputDialog(
+                                "¿Que habitaicon quiere limpiar?\n"
+                                + "1-Habitaciones predeterminadas"
+                                + "2-Habitaciones aniadidas"));
 
-                            //calculamos si la aspiradora es capaz de limpiar dicha 
-                            //habitacion
-                            bateriaNecesaria = metrosDependencias[habitacionDependencia]
-                                     * DESGASTEBATERIA;
-                            if (BATERIA > bateriaNecesaria) {
-                                JOptionPane.showMessageDialog(null, "La aspiradora va a "
-                                        + "limpiar la habiracion: "
-                                        + nombreDependencia[habitacionDependencia]
-                                        + "\nCarga:" + BATERIA);
-
-                                //
-                                for (int limpiar = 0; limpiar < metrosDependencias[habitacionDependencia]; limpiar++) {
-                                        BATERIA = BATERIA - DESGASTEBATERIA;
-
-                                }
-                                JOptionPane.showMessageDialog(null, "Habitación limpiada\n"
-                                        + "Bateria restante: " + BATERIA);
-                            } else {
-                                JOptionPane.showMessageDialog(null, "No se pude limpiar "
-                                        + "esta habitacion.\nProbrando en la siguiente"
-                                        + " habitacion");
-                            }
-                            break;
-                        case 2:
-                            if (answer.equalsIgnoreCase("si")) {
-                                int habitacionAdicional = Integer.parseInt(
+                        switch (habitacion) {
+                            case 1:
+                                int habitacionDependencia = Integer.parseInt(
                                         JOptionPane.showInputDialog("¿Que habitaicon quiere "
-                                                + "limpiar?\n(0 - "
-                                                + nombreHabAdicional.length + ") habiraciones"));
+                                                + "limpiar?\n"
+                                                + "1-Salon"
+                                                + "2-Cocina"
+                                                + "3-Baño"
+                                                + "4-Dormitorio"));
 
                                 //calculamos si la aspiradora es capaz de limpiar dicha 
                                 //habitacion
-                                bateriaNecesaria = metrosHabAdiconales[habitacionAdicional]
+                                bateriaNecesaria = metrosDependencias[habitacionDependencia]
                                         * DESGASTEBATERIA;
                                 if (BATERIA > bateriaNecesaria) {
                                     JOptionPane.showMessageDialog(null, "La aspiradora va a "
                                             + "limpiar la habiracion: "
-                                            + nombreHabAdicional[habitacionAdicional]
+                                            + nombreDependencia[habitacionDependencia]
                                             + "\nCarga:" + BATERIA);
 
-                                    //
-                                    for (int limpiar = 0; limpiar < metrosDependencias[habitacionAdicional]; limpiar++) {
-                                            BATERIA = BATERIA - DESGASTEBATERIA;
+                                    //bucle para limpiar metro a metro la habitaicon
+                                    for (int limpiar = 0; limpiar < metrosDependencias[habitacionDependencia]; limpiar++) {
                                         
+                                        //actualizacion de la bateria
+                                        BATERIA = BATERIA - DESGASTEBATERIA;
+
                                     }
                                     JOptionPane.showMessageDialog(null, "Habitación limpiada\n"
                                             + "Bateria restante: " + BATERIA);
-
                                 } else {
                                     JOptionPane.showMessageDialog(null, "No se pude limpiar "
                                             + "esta habitacion.\nProbrando en la siguiente"
                                             + " habitacion");
                                 }
-                            } else {
-                                JOptionPane.showMessageDialog(null, "No hay "
-                                        + "habitaciones adicionales "
-                                        + "(Solo habitacione predeterminadas).");
-                            }
-                            break;
-                    }
-                }
+                                break;
+                            case 2:
+                                if (answer.equalsIgnoreCase("si")) {
+                                    int habitacionAdicional = Integer.parseInt(
+                                            JOptionPane.showInputDialog("¿Que habitaicon quiere "
+                                                    + "limpiar?\n(0 - "
+                                                    + nombreHabAdicional.length + ") habiraciones"));
 
-            } while (repetir);
+                                    //calculamos si la aspiradora es capaz de limpiar dicha 
+                                    //habitacion
+                                    bateriaNecesaria = metrosHabAdiconales[habitacionAdicional]
+                                            * DESGASTEBATERIA;
+                                    if (BATERIA > bateriaNecesaria) {
+                                        JOptionPane.showMessageDialog(null, "La aspiradora va a "
+                                                + "limpiar la habiracion: "
+                                                + nombreHabAdicional[habitacionAdicional]
+                                                + "\nCarga:" + BATERIA);
+
+                                        for (int limpiar = 0; limpiar < metrosDependencias[habitacionAdicional]; limpiar++) {
+                                            
+                                            //actualizacion de la bateria
+                                            BATERIA = BATERIA - DESGASTEBATERIA;
+
+                                        }
+                                        JOptionPane.showMessageDialog(null, "Habitación limpiada\n"
+                                                + "Bateria restante: " + BATERIA);
+
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "No se pude limpiar "
+                                                + "esta habitacion.\nProbrando en la siguiente"
+                                                + " habitacion");
+                                    }
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "No hay "
+                                            + "habitaciones adicionales "
+                                            + "(Solo habitacione predeterminadas).");
+                                }
+                                break;
+                        }
+                    }
+
+                } while (repetir);
                 break;
 
         }
+        //fin de la funcion
         JOptionPane.showMessageDialog(null, "Modo limpieza acabado");
 
     }
-     
-     public static void ModoAspiracionFregado(int[] metrosDependencias,
+
+    //para esta funcion necesitamos los 4 arrays y la respuesta de si queremos aniadir habitaciones
+    public static void ModoAspiracionFregado(int[] metrosDependencias,
             int[] metrosHabAdiconales, String[] nombreDependencia,
             String[] nombreHabAdicional, String answer) {
 
@@ -387,111 +397,123 @@ public class Programa {
                 break;
             case 2:
                 boolean repetir;
-            do {
-                repetir = MensajeLimpiar();
+                do {
+                    repetir = MensajeLimpiar();
 
-                if (repetir == true) {
+                    if (repetir == true) {
 
-                    int habitacion = Integer.parseInt(JOptionPane.showInputDialog(
-                            "¿Que habitaicon quiere limpiar?\n"
-                            + "1-Habitaciones predeterminadas"
-                            + "2-Habitaciones aniadidas"));
+                        int habitacion = Integer.parseInt(JOptionPane.showInputDialog(
+                                "¿Que habitaicon quiere limpiar?\n"
+                                + "1-Habitaciones predeterminadas"
+                                + "2-Habitaciones aniadidas"));
 
-                    switch (habitacion) {
-                        case 1:
-                            int habitacionDependencia = Integer.parseInt(
-                                    JOptionPane.showInputDialog("¿Que habitaicon quiere "
-                                    + "limpiar?\n"
-                                    + "1-Salon"
-                                    + "2-Cocina"
-                                    + "3-Baño"
-                                    + "4-Dormitorio"));
-
-                            //calculamos si la aspiradora es capaz de limpiar dicha 
-                            //habitacion
-                            bateriaNecesaria = metrosDependencias[habitacionDependencia]
-                                     * DESGASTEBATERIA;
-                            if (BATERIA > bateriaNecesaria) {
-                                JOptionPane.showMessageDialog(null, "La aspiradora va a "
-                                        + "limpiar la habiracion: "
-                                        + nombreDependencia[habitacionDependencia]
-                                        + "\nCarga:" + BATERIA);
-
-                                //
-                                for (int limpiar = 0; limpiar < metrosDependencias[habitacionDependencia]; limpiar++) {
-                                        BATERIA = BATERIA - DESGASTEBATERIA;
-
-                                }
-                                JOptionPane.showMessageDialog(null, "Habitación limpiada\n"
-                                        + "Bateria restante: " + BATERIA);
-                            } else {
-                                JOptionPane.showMessageDialog(null, "No se pude limpiar "
-                                        + "esta habitacion.\nProbrando en la siguiente"
-                                        + " habitacion");
-                            }
-                            break;
-                        case 2:
-                            if (answer.equalsIgnoreCase("si")) {
-                                int habitacionAdicional = Integer.parseInt(
+                        switch (habitacion) {
+                            case 1:
+                                int habitacionDependencia = Integer.parseInt(
                                         JOptionPane.showInputDialog("¿Que habitaicon quiere "
-                                                + "limpiar?\n(0 - "
-                                                + nombreHabAdicional.length + ") habiraciones"));
+                                                + "limpiar?\n"
+                                                + "1-Salon"
+                                                + "2-Cocina"
+                                                + "3-Baño"
+                                                + "4-Dormitorio"));
 
                                 //calculamos si la aspiradora es capaz de limpiar dicha 
                                 //habitacion
-                                bateriaNecesaria = metrosHabAdiconales[habitacionAdicional]
+                                bateriaNecesaria = metrosDependencias[habitacionDependencia]
                                         * DESGASTEBATERIA;
                                 if (BATERIA > bateriaNecesaria) {
                                     JOptionPane.showMessageDialog(null, "La aspiradora va a "
                                             + "limpiar la habiracion: "
-                                            + nombreHabAdicional[habitacionAdicional]
+                                            + nombreDependencia[habitacionDependencia]
                                             + "\nCarga:" + BATERIA);
 
                                     //
-                                    for (int limpiar = 0; limpiar < metrosDependencias[habitacionAdicional]; limpiar++) {
-                                            BATERIA = BATERIA - DESGASTEBATERIA;
-                                        
+                                    for (int limpiar = 0; limpiar < metrosDependencias[habitacionDependencia]; limpiar++) {
+
+                                        //actualizacion de la bateria
+                                        BATERIA = BATERIA - DESGASTEBATERIA;
+
                                     }
                                     JOptionPane.showMessageDialog(null, "Habitación limpiada\n"
                                             + "Bateria restante: " + BATERIA);
-
                                 } else {
                                     JOptionPane.showMessageDialog(null, "No se pude limpiar "
                                             + "esta habitacion.\nProbrando en la siguiente"
                                             + " habitacion");
                                 }
-                            } else {
-                                JOptionPane.showMessageDialog(null, "No hay "
-                                        + "habitaciones adicionales "
-                                        + "(Solo habitacione predeterminadas).");
-                            }
-                            break;
-                    }
-                }
+                                break;
+                            case 2:
+                                //condicion para que haya habitaciones es que hayamos querido aniadir habitaciones adiciionales
+                                if (answer.equalsIgnoreCase("si")) {
+                                    int habitacionAdicional = Integer.parseInt(
+                                            JOptionPane.showInputDialog("¿Que habitaicon quiere "
+                                                    + "limpiar?\n(0 - "
+                                                    + nombreHabAdicional.length + ") habiraciones"));
 
-            } while (repetir);
+                                    //calculamos si la aspiradora es capaz de limpiar dicha 
+                                    //habitacion
+                                    bateriaNecesaria = metrosHabAdiconales[habitacionAdicional]
+                                            * DESGASTEBATERIA;
+                                    if (BATERIA > bateriaNecesaria) {
+                                        JOptionPane.showMessageDialog(null, "La aspiradora va a "
+                                                + "limpiar la habiracion: "
+                                                + nombreHabAdicional[habitacionAdicional]
+                                                + "\nCarga:" + BATERIA);
+
+                                        //
+                                        for (int limpiar = 0; limpiar < metrosDependencias[habitacionAdicional]; limpiar++) {
+
+                                            //actualizaxcion de bateria
+                                            BATERIA = BATERIA - DESGASTEBATERIA;
+
+                                        }
+                                        JOptionPane.showMessageDialog(null, "Habitación limpiada\n"
+                                                + "Bateria restante: " + BATERIA);
+
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "No se pude limpiar "
+                                                + "esta habitacion.\nProbrando en la siguiente"
+                                                + " habitacion");
+                                    }
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "No hay "
+                                            + "habitaciones adicionales "
+                                            + "(Solo habitacione predeterminadas).");
+                                }
+                                break;
+                        }
+                    }
+
+                } while (repetir);
                 break;
         }
+        //fin de la funcion
         JOptionPane.showMessageDialog(null, "Modo limpieza acabado");
     }
-    
+
+    //para esta funcion necesitamos los 4 arrays y el numero de habitaciones aniadidas
     public static void estadoGeneral(int[] metrosDependencias,
             int[] metrosHabAdiconales, String[] nombreDependencia,
             String[] nombreHabAdicional, String answer, int habitacionesAniadidas) {
 
+        //definimos las fechas
         Date fecha = new Date();
         Date hora = new Date();
 
+        //creamos el forato que queremos
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
 
+        //imprimimos por pantalla la fecha y la hora
         JOptionPane.showMessageDialog(null, "Hoy es: "
                 + formatoFecha.format(fecha)
                 + "\nHora: "
                 + formatoHora.format(hora));
 
-        int metrosTotalesAdicionales = 0;
+        int metrosTotalesAdicionales = 0;//creamos una variable para las hab aniadidas
         int metrosTotalesCasa;
+
+        //mostramos por pantalla las dimensiones de la casa
         JOptionPane.showMessageDialog(null, "Dimensiones de la casa:\n"
                 + nombreDependencia[0] + "= " + metrosDependencias[0]
                 + " metros cuadrados." + "\n"
@@ -508,10 +530,11 @@ public class Programa {
                         + "añadida:\n" + nombreHabAdicional[k] + "= "
                         + metrosHabAdiconales[k] + " metros cuadrados.");
                 metrosTotalesAdicionales = metrosTotalesAdicionales
-                        + metrosHabAdiconales[k];
+                        + metrosHabAdiconales[k];//actilizaciond e variable
             }
         }
 
+        //operacion para calcular el total de metrosd e la casa
         metrosTotalesCasa = metrosDependencias[0] + metrosDependencias[1]
                 + metrosDependencias[2] + metrosDependencias[3]
                 + metrosTotalesAdicionales;
