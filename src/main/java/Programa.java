@@ -109,6 +109,37 @@ public class Programa {
         } while (repetirPrograma);
 
     }
+    
+    public static void inicioDeSesion() {
+
+        final String usuario = "usuario";
+        final String contraseña = "usuario";
+        boolean repetirInicio = true;
+        do {
+            String inicio = JOptionPane.showInputDialog("Nombre de usuario");
+            String password = JOptionPane.showInputDialog("Contraseña");
+            if (inicio.equals(usuario) && password.equals(contraseña)) {
+                repetirInicio = false;
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario o contraseña "
+                        + "incorrectos.\nIntente de nuevo.");
+            }
+        } while (repetirInicio);
+    }
+
+    public static int ElijaOpcion() {
+
+        //mostramos por pantalla las opciones del programa
+        String opcion = JOptionPane.showInputDialog("Seleccione modo:\n"
+                + "1-Carga\n"
+                + "2-Modo Aspiracion\n"
+                + "3-Modo Aspiracion y fregado\n"
+                + "4-Base de carga\n"
+                + "5-Estado general\n"
+                + "6-Salir del programa");
+        int modo = Integer.parseInt(opcion);
+        return modo;
+    }
 
     public static boolean MensajeRepetir() {
         boolean repite = true;
